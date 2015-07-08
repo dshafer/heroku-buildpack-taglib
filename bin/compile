@@ -1,4 +1,5 @@
 #!/bin/sh
+echo "BUILD_DIR is $1"
 
 indent() {
   sed -u 's/^/       /'
