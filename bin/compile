@@ -25,5 +25,8 @@ echo "PROFILE_PATH is $PROFILE_PATH"
 mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$PATH:/app/vendor/taglib/bin"' >> $PROFILE_PATH
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/app/vendor/taglib/lib"' >> $PROFILE_PATH
-echo 'export CPATH="$CPATH:/app/vendor/taglib/include/taglib"' >> $PROFILE_PATH
-echo 'export LIBRARY_PATH="$LIBRARY_PATH:/app/vendor/taglib/lib"' >> $PROFILE_PATH
+
+# make taglib available to subsequent buildpacks
+export PATH="$PATH:$BUILD_DIR/$VENDOR_DIR/taglib/bin"
+export CPATH="$CPATH:$BUILD_DIR/$VENDOR_DIR/taglib/include/taglib"
+export LIBRARY_PATH="$LIBRARY_PATH:$BUILD_DIR/$VENDOR_DIR/taglib/lib"
