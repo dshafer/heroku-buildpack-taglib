@@ -14,13 +14,15 @@ echo "DOWNLOAD_URL = " $DOWNLOAD_URL | indent
 cd $BUILD_DIR
 mkdir -p $VENDOR_DIR
 cd $VENDOR_DIR
+
+echo "installing taglib to $VENDOR_DIR"
 curl -L --silent $DOWNLOAD_URL | tar xz
 
 echo "exporting PATH, LIBRARY_PATH, CPATH, and LIBRARY_PATH" | indent
 PROFILE_PATH="$BUILD_DIR/.profile.d/taglib.sh"
+echo "PROFILE_PATH is $PROFILE_PATH"
 mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$PATH:/app/vendor/taglib/bin"' >> $PROFILE_PATH
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/app/vendor/taglib/lib"' >> $PROFILE_PATH
 echo 'export CPATH="$CPATH:/app/vendor/taglib/include/taglib"' >> $PROFILE_PATH
 echo 'export LIBRARY_PATH="$LIBRARY_PATH:/app/vendor/taglib/lib"' >> $PROFILE_PATH
-env
