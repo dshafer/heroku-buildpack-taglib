@@ -6,7 +6,10 @@ indent() {
 }
 
 echo "-----> Installing taglib"
-BUILD_DIR=$1
+BUILD_DIR=${1:-}
+CACHE_DIR=${2:-}
+ENV_DIR=${3:-}
+
 VENDOR_DIR="vendor"
 DOWNLOAD_URL="http://s3.amazonaws.com/purple-cloud-binaries/heroku/taglib.tar.gz"
 
@@ -27,6 +30,6 @@ echo 'export PATH="$PATH:/app/vendor/taglib/bin"' >> $PROFILE_PATH
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/app/vendor/taglib/lib"' >> $PROFILE_PATH
 
 # make taglib available to subsequent buildpacks
-export PATH="$PATH:$BUILD_DIR/$VENDOR_DIR/taglib/bin"
-export CPATH="$CPATH:$BUILD_DIR/$VENDOR_DIR/taglib/include/taglib"
-export LIBRARY_PATH="$LIBRARY_PATH:$BUILD_DIR/$VENDOR_DIR/taglib/lib"
+echo ":$BUILD_DIR/$VENDOR_DIR/taglib/bin" > $ENV_DIR/PATH
+echo  ":$BUILD_DIR/$VENDOR_DIR/taglib/include/taglib" >> $ENV_DIR/CPATH 
+echo ":$BUILD_DIR/$VENDOR_DIR/taglib/lib" >> $ENV_DIR/LIBRARY_PATH
